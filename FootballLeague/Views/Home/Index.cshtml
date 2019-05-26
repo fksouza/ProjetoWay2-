@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "Search League";
+}
+
+<div style="margin-top:20px">
+
+    <form class="form-inline" asp-action="Index">
+
+        <select class="form-control" name="ano">
+            <option value="2000" selected>FIFA World Cup</option>
+            <option value="2001">UEFA Champions League </option>
+            <option value="2002">Bundesliga</option>
+            <option value="2003">Eredivisie</option>
+            <option value="2013">Brasileiro</option>
+            <option value="2014">Espanhol</option>
+            <option value="2015">Francês</option>
+            <option value="2016">EFL Championship</option>
+            <option value="2017">POrtuguês</option>
+            <option value="2018">Europa Championship </option>
+            <option value="2019">Italiano</option>
+            <option value="2021">Inglês</option>
+        </select>
+
+        <input type="submit" class="btn btn-default" value="Buscar">
+
+        <br />  <br />
+
+        <div class="form-inline">
+
+            @if (@ViewBag.list != null)
+            {
+                <label class="control-label"> Competição : @ViewBag.list.competition.name</label>
+                <br />
+                <label class="control-label">Temporada atual: @ViewBag.list.season.currentMatchday</label>
+                <br />
+                <label class="control-label"> Iniciada : @string.Format(@"{0:d}", Convert.ToDateTime(ViewBag.list.season.startDate))</label>
+                <br />
+                <label class="control-label"> Última atualização : @string.Format(@"{0:d}", Convert.ToDateTime(ViewBag.list.season.endDate))</label>
+
+            }
+
+            <br /><br />
+
+            <table id="tbleague" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Position
+                        </th>
+                        <th>
+                            Team
+                        </th>
+                        <th>
+                            Points
+                        </th>
+                        <th>
+                            Play
+                        </th>
+                        <th>
+                            Won
+                        </th>
+                        <th>
+                            Draw
+                        </th>
+                        <th>
+                            Lost
+                        </th>
+
+                        <th>
+                            GoalsFor
+                        </th>
+                        <th>
+                            GoalsAgainst
+                        </th>
+                        <th>
+                            GoalDifference
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.list != null)
+                    {
+                        @foreach (var item in @ViewBag.list.standings[0].table)
+                        {
+                            <tr>
+                                <td>
+                                    @item.position
+                                </td>
+                                <td>
+                                    @item.team.name
+                                </td>
+                                <td>
+                                    @item.points
+                                </td>
+                                <td>
+                                    @item.playedGames
+                                </td>
+                                <td>
+                                    @item.won
+                                </td>
+                                <td>
+                                    @item.draw
+                                </td>
+                                <td>
+                                    @item.lost
+                                </td>
+
+                                <td>
+                                    @item.goalsFor
+                                </td>
+                                <td>
+                                    @item.goalsAgainst
+                                </td>
+                                <td>
+                                    @item.goalDifference
+                                </td>
+
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
